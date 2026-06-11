@@ -23,8 +23,15 @@ jobs:
             artifactName: androidBuild
             artifactPath: "export/release/android/bin/app/build/outputs/apk/release/*.apk"
             system: Android
+          - name: iOS
+            os: macos-15
+            setupCommand: sh ./setup/unix.sh
+            buildArgs: "ios -final -nosign -D officialBuild"
+            artifactName: iOSBuild
+            artifactPath: "export/release/ios/build/Release-iphoneos/*.ipa"
+            system: iOS
           - name: Windows
-            os: windows-2022
+            os: windows-2025
             buildArgs: "windows -D officialBuild -final"
             setupCommand: .\"setup/windows.bat"
             artifactName: windowsBuild-x86_64
@@ -54,6 +61,15 @@ jobs:
       - name: Move Android File
         run: mv /home/runner/${{ env.PROJECT_NAME }}-release.apk /home/runner/PsychExtended-v102-Beta2-Update.apk
 
+      - name: Download iOS Build
+        uses: actions/download-artifact@main
+        with:
+          name: iOSBuild
+          path: ${{ github.workspace }}
+
+      - name: Move iOS File
+        run: mv ${{ github.workspace }}/${{ env.PROJECT_NAME }}.ipa /home/runner/PsychExtended-v102-Beta2-Update.ipa
+
       - name: Download Windows x86_64 Build
         uses: actions/download-artifact@main
         with:
@@ -73,5 +89,6 @@ jobs:
           prerelease: true
           files: |
             /home/runner/*.apk
+            /home/runner/*.ipa
             /home/runner/*.zip
             /home/runner/*.tar
