@@ -689,7 +689,7 @@ class Paths
 
 		var baseDir:String = targetParts.shift();
 		var searchDirs:Array<String> = [
-			mods(Paths.currentModDirectory + '/' + baseDir),
+			mods(Mods.currentModDirectory + '/' + baseDir),
 			mods(baseDir)
 		];
 
