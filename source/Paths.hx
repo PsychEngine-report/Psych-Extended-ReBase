@@ -610,9 +610,9 @@ class Paths
 	{
 		#if mobile
 		//Check External first
-		if(FileSystem.exists(StorageUtil.getExternalStorageDirectory() + 'scripting/$file')) {
+		if(FileSystem.exists(#if android StorageUtil.getExternalStorageDirectory() #elseif ios StorageUtil.getStorageDirectory() #end + 'scripting/$file')) {
 			//trace('file: ' + StorageUtil.getExternalStorageDirectory() + file + ' exists');
-			return StorageUtil.getExternalStorageDirectory() + 'scripting/$file';
+			return #if android StorageUtil.getExternalStorageDirectory() #elseif ios StorageUtil.getStorageDirectory() #end + 'scripting/$file';
 		}
 		else
 		#end
