@@ -11,7 +11,8 @@ haxelib git linc_luajit https://github.com/kittycathy233/linc_luajit --quiet #Si
 haxelib git flixel https://github.com/PsychExtendedThings/flixel 5.6.1 --quiet
 haxelib install flixel-addons 3.2.2 --quiet
 haxelib install flixel-ui 2.4.0 --quiet #I don't know why is it exist
-haxelib git SScript https://github.com/HomuHomu833/SScript --quiet #stable SScript version (KarimAkra recommended this version)
+haxelib git SScript https://github.com/PsychExtendedThings/SScript #stable SScript version (KarimAkra recommended this version)
+#haxelib git SScript https://github.com/HomuHomu833/SScript --quiet 
 haxelib git hscript-improved https://github.com/PsychExtendedThings/hscript-improved-Psych --quiet #changed with updated one
 haxelib install hscript 2.4.0 --quiet
 haxelib install tjson 1.4.0 --quiet #for fucking mods system (haxe.Json brokes the modlist)
