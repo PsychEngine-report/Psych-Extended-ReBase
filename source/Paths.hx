@@ -434,12 +434,12 @@ class Paths
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
 		#if MODPACK_ALLOWED
-		var modpack = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + ClientPrefs.data.currentModPack + '/' + key;
+		var modpack = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + ClientPrefs.data.currentModPack + '/' + key;
 		if (ClientPrefs.data.currentModPack != null && FileSystem.exists(modpack))
 			return modpack;
 		//global
-		if (ClientPrefs.data.currentModPack != null) return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
-		else #end return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
+		if (ClientPrefs.data.currentModPack != null) return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
+		else #end return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
 	}
 
 	inline static public function modsJson(key:String)
@@ -478,12 +478,12 @@ class Paths
 
 		}
 		#if MODPACK_ALLOWED
-		var modpack = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + ClientPrefs.data.currentModPack + '/' + key;
+		var modpack = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + ClientPrefs.data.currentModPack + '/' + key;
 		if (ClientPrefs.data.currentModPack != null && FileSystem.exists(modpack))
 			return modpack;
 		//global
-		if (ClientPrefs.data.currentModPack != null) return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
-		else #end return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
+		if (ClientPrefs.data.currentModPack != null) return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
+		else #end return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
 	}
 	#end
 
@@ -652,9 +652,9 @@ class Paths
 	
 	inline static public function modpack(key:String = '') {
 		#if MODPACK_ALLOWED
-		return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
+		return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modpack/' + key;
 		#else
-		return #if mobile StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
+		return #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'mods/' + key;
 		#end
 	}
 	

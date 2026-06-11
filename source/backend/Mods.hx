@@ -181,10 +181,10 @@ class Mods
 
 		#if MODS_ALLOWED
 		try {
-			var curThing:String = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
+			var curThing:String = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
 			#if MODPACK_ALLOWED
 			if (ClientPrefs.data.currentModPack != null) curThing = Paths.modpack(ClientPrefs.data.currentModPack + '/modsList.txt');
-			else #end curThing = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
+			else #end curThing = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
 			for (mod in CoolUtil.coolTextFile(curThing))
 			{
 				//trace('Mod: $mod');
@@ -211,10 +211,10 @@ class Mods
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
 		try {
-			var curThing:String = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
+			var curThing:String = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
 			#if MODPACK_ALLOWED
 			if (ClientPrefs.data.currentModPack != null) curThing = Paths.modpack(ClientPrefs.data.currentModPack + '/modsList.txt');
-			else #end curThing = #if mobile StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
+			else #end curThing = #if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt';
 			for (mod in CoolUtil.coolTextFile(curThing))
 			{
 				var dat:Array<String> = mod.split("|");
@@ -251,7 +251,7 @@ class Mods
 
 		#if MODPACK_ALLOWED
 		if (ClientPrefs.data.currentModPack != null) File.saveContent(Paths.modpack(ClientPrefs.data.currentModPack + '/modsList.txt'), fileStr);
-		else #end File.saveContent(#if mobile StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt', fileStr);
+		else #end File.saveContent(#if ios StorageUtil.getStorageDirectory() + #elseif android StorageUtil.getExternalStorageDirectory() + #end 'modsList.txt', fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end
