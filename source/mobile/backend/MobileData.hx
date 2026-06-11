@@ -46,10 +46,13 @@ class MobileData
 			if (Path.extension(fileWithNoLib) == 'json')
 			{
 				file = Path.join([folder, Path.withoutDirectory(file)]);
-				var str = #if MODS_ALLOWED File.getContent(file) #else Assets.getText(file) #end;
+				try {
 				var json:MobileButtonsData = cast Json.parse(str);
 				var mapKey:String = Path.withoutDirectory(Path.withoutExtension(fileWithNoLib));
 				map.set(mapKey, json);
+				} catch(e:Dynamic) {
+				    trace("Error parsing file: " + file);
+				}
 			}
 		}
 	}
