@@ -296,9 +296,17 @@ class Paths
 			for(mod in Mods.getGlobalMods())
 				if (FileSystem.exists(mods('$mod/$modKey')))
 					return true;
+				#if (android || linux || ios)
+				else if (FileSystem.exists(findFile(modKey)))
+					return true;
+				#end
 
 			if (FileSystem.exists(mods(Mods.currentModDirectory + '/' + modKey)) || FileSystem.exists(mods(modKey)))
 				return true;
+			#if (android || linux || ios)
+			else if (FileSystem.exists(findFile(modKey)))
+				return true;
+			#end
 		}
 		#end
 		return (OpenFlAssets.exists(getPath(key, type, parentFolder, false)));
@@ -469,12 +477,28 @@ class Paths
 			if(FileSystem.exists(fileToCheck)) {
 				return fileToCheck;
 			}
+			#if (linux || android || ios)
+			else
+			{
+				var newPath:String = findFile(key);
+				if (newPath != null)
+					return newPath;
+			}
+			#end
 		}
 
 		for(mod in Mods.getGlobalMods()){
 			var fileToCheck:String = mods(mod + '/' + key);
 			if(FileSystem.exists(fileToCheck))
 				return fileToCheck;
+			#if (linux || android || ios)
+			else
+			{
+				var newPath:String = findFile(key);
+				if (newPath != null)
+					return newPath;
+			}
+			#end
 
 		}
 		#if MODPACK_ALLOWED
