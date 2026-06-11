@@ -113,7 +113,7 @@
 
 	<define name="ACHIEVEMENTS_ALLOWED" />
 
-	<define name="VIDEOS_ALLOWED" if="web || windows || android" unless="32bits"/>
+	<define name="VIDEOS_ALLOWED" if="web || windows || android || ios" unless="32bits"/>
 
 	<!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="PSYCH_WATERMARKS"/>
@@ -190,7 +190,7 @@
 
 	<haxelib name="tjson"/> <!-- Haxe's json brokes the mods, so use tjson for them -->
 
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
 
 	<haxelib name="faxe" if='switch'/>
 

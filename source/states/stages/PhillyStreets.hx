@@ -213,13 +213,10 @@ class PhillyStreets extends BaseStage
 		{
 			#if VIDEOS_ALLOWED
 			game.startVideo(videoName);
-			game.videoCutscene.finishCallback = function()
+			game.video.finishCallback = function()
 			{
 				videoEnded = true;
-				#if (hxCodec > "3.0.0" && ios)
-				game.videoCutscene.dispose();
-				#end
-				game.videoCutscene = null;
+				game.video = null;
 				videoCutscene();
 			};
 

@@ -68,7 +68,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import vlc.MP4Handler;
+import hxvlc.flixel.VideoSprite;
 #end
 
 // stages
@@ -264,6 +264,7 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
+	public var camVideo:FlxCamera;
 	public var luaMpadCam:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
@@ -421,14 +422,17 @@ class PlayState extends MusicBeatState
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		luaMpadCam = new FlxCamera();
+		camVideo = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		luaMpadCam.bgColor.alpha = 0;
+		camVideo.bgColor.alpha = 0;
 
 		//FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 		FlxG.cameras.add(luaMpadCam, false);
+		FlxG.cameras.add(camVideo, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		//FlxG.cameras.setDefaultDrawTarget(camGame, true);
@@ -1101,7 +1105,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	var videoCutscene:MP4Handler = null;
+	var video:VideoSprite = null;
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -1119,22 +1123,25 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		videoCutscene = new MP4Handler();
-		#if (hxCodec < "3.0.0" && !ios)
-		videoCutscene.playVideo(filepath);
-		videoCutscene.finishCallback = function()
+		var video:VideoSprite = new VideoSprite(filepath, false, true, false);
+		add(video);
+		video.load(filepath);
+		video.play();
+		video.cameras = [camVideo];
+		video.alpha = 1;
+		video.visible = true;
+		video.bitmap.onFormatSetup.add(function()
 		{
-			startAndEnd();
-			return;
-		}
-		#else
-		videoCutscene.play(filepath);
-		videoCutscene.onEndReached.add(function(){
-			videoCutscene.dispose();
+			video.setGraphicSize(FlxG.width, FlxG.height);
+			video.updateHitbox();
+			video.screenCenter();
+		});
+		video.bitmap.onEndReached.add(function()
+		{
+			video.destroy();
 			startAndEnd();
 			return;
 		});
-		#end
 		#else
 		FlxG.log.warn('Platform not supported!');
 		startAndEnd();

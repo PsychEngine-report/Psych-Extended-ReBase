@@ -85,7 +85,7 @@ class HScript extends Script {
 		return this;
 	}
 
-	private function importFailedCallback(cl:Array<String>):Bool {
+	private function importFailedCallback(cl:Array<String>, ?className:Null<String>):Bool {
 		var assetsPath = 'assets/source/${cl.join("/")}';
 		for(hxExt in ["hx", "hscript", "hsc", "hxs"]) {
 			var p = '$assetsPath.$hxExt';
@@ -395,16 +395,11 @@ class Script extends FlxBasic implements IFlxDestroyable {
 			#end
 
 			/* for returning hxCodec 3.x.x requests to hxCodec 2.5.1 */
-			"FlxVideo"		  => hxcodec.flixel.FlxVideo,
-			"FlxVideoSprite"		  => hxcodec.flixel.FlxVideoSprite,
+			"FlxVideo"		  => hxvlc.flixel.FlxVideo,
+			"FlxVideoSprite"		  => hxvlc.flixel.FlxVideoSprite,
 
 			/* hxCodec 2.6.0 things */
-			"VideoHandler"		  => VideoHandler,
-			"VideoSprite"		  => VideoSprite,
-
-			/* hxCodec 2.5.1 */
-			"MP4Handler"		  => vlc.MP4Handler,
-			"MP4Sprite"		  => vlc.MP4Sprite,
+			"VideoSprite"		  => hxvlc.flixel.VideoSprite,
 
 			/* Converters (There's only CNE for now, but I can add other ones too) */
 			#if CNE_CHART_ALLOWED
